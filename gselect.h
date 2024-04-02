@@ -21,8 +21,11 @@ class GSelectBP{
         int predictorSize;
         int phtcCTRbits;
         int globalHistoryBits;
-        int globalHistory;
+        int globalHistoryMask;
+        int globalHistoryReg;
         int prevGlobalHistory;
-        std:vector<int> predictorTable;
-}
+        int prevGlobalHistory;
+        int PHTThreshold;
+        std::vector<int> predictorTable;
+};
 #endif

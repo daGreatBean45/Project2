@@ -6,7 +6,7 @@ GSelectBP::GSelectBP(int size, int ctrBits, int globalHistoryBits){
     branchMask = (1 << bBranch) - 1;
     globalHistoryMask = (1 << globalHistoryBits) - 1;
     PHTThreshold = (1 << (ctrBits - 1));
-    prevGLobalHistory = 0;
+    prevGlobalHistory = 0;
 }
 
 bool GSelectBP::lookup(int branch_address){
@@ -48,7 +48,7 @@ void GSelectBP::update(int branch_address, bool taken, bool squashed){
     }
 
     // Update global history
-    previousGlobalHistory = globalHistoryReg;
+    prevGlobalHistory = globalHistoryReg;
     globalHistoryReg = ((globalHistoryReg << 1) | taken) & globalHistoryMask;
 
     // Delete the history (if needed, depending on the specific requirements)
@@ -71,6 +71,7 @@ void GSelectBP::squash(){
 }
 
 int main(){
+    GSelectBP predictor(1024, 2, 8);
     int branch_addr = 0x12345678;
     bool prediction = predictor.lookup(branch_addr);
     bool actual_outcome = true;
@@ -79,7 +80,7 @@ int main(){
     predictor.update(branch_addr, actual_outcome, squashed);
     predictor.uBranch(true);
     predictor.btbUpdate();
-    predictor.squashed();
+    predictor.squash();
     
     return 0;
 }
