@@ -6,7 +6,7 @@
 class GSelectBP{
     public:
         //testing to see if this shows up on the github
-        GSelectBP(int size, int ctrBits, int hstryBits);
+        GSelectBP(int size, int ctrBits, int globalHistoryBits);
         bool lookup(int branch_address);
         void update(int branch_address, bool taken, bool squashed);
         void uBranch(bool taken);
@@ -23,7 +23,6 @@ class GSelectBP{
         int globalHistoryBits;
         int globalHistoryMask;
         int globalHistoryReg;
-        int prevGlobalHistory;
         int prevGlobalHistory;
         int PHTThreshold;
         std::vector<int> predictorTable;
