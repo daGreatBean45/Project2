@@ -64,7 +64,7 @@ void GSelectBP::btbUpdate(){
     //modify the globalHistoryReg of the thread
     globalHistoryReg = (globalHistoryReg << 1) & globalHistoryMask;
 }
-void GSelectBP::squash(){
+bool GSelectBP::squash(){
     //modify the globalHistoryReg of the thread
     //delete the history
     globalHistoryReg = 0;

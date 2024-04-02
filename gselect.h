@@ -11,7 +11,7 @@ class GSelectBP{
         void update(int branch_address, bool taken, bool squashed);
         void uBranch(bool taken);
         void btbUpdate();
-        void squash(int bpHistory);
+        bool squash();
     private:
         int bpHistory;
         int bBranch;
