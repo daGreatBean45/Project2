@@ -14,6 +14,7 @@ class GSelectBP{
         void squash(int bpHistory);
     private:
         int bpHistory;
+        int bBranch;
         int size;
         int branchMask;
         int phtHistoryBits;
