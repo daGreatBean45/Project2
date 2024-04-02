@@ -22,12 +22,11 @@ bool GSelectBP::lookup(int branch_address){
 
 }
 void GSelectBP::update(int branch_address, bool taken, bool squashed){
-
     //modify the history.
     int global_history = globalHistoryReg & globalHistoryMask;
     int branch_address_bits = branch_address & branchMask;
     //if squashed {do something}, otherwise {do something else}.
-    bool squashed = squash();
+    bool squashed = squash(squashed);
     if(squashed){
         // Restore global history if it was updated during the prediction of the branch
         // Do not update counters
@@ -64,10 +63,14 @@ void GSelectBP::btbUpdate(){
     //modify the globalHistoryReg of the thread
     globalHistoryReg = (globalHistoryReg << 1) & globalHistoryMask;
 }
-bool GSelectBP::squash(){
+bool GSelectBP::squash(bool bp_history){
+    //consider adding a parameter called bp_history
+    
+    bool result;
     //modify the globalHistoryReg of the thread
     //delete the history
     globalHistoryReg = 0;
+    return result;
 }
 
 int main(){
@@ -76,11 +79,11 @@ int main(){
     bool prediction = predictor.lookup(branch_addr);
     bool actual_outcome = true;
     bool squashed = false;
-    
+    bool bp_history;
     predictor.update(branch_addr, actual_outcome, squashed);
     predictor.uBranch(true);
     predictor.btbUpdate();
-    predictor.squash();
+    predictor.squash(&bp_history);
     
     return 0;
 }

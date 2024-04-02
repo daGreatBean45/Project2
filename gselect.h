@@ -11,9 +11,8 @@ class GSelectBP{
         void update(int branch_address, bool taken, bool squashed);
         void uBranch(bool taken);
         void btbUpdate();
-        bool squash();
+        bool squash(bool bp_history);
     private:
-        int bpHistory;
         int bBranch;
         int size;
         int branchMask;
@@ -25,6 +24,7 @@ class GSelectBP{
         int globalHistoryReg;
         int prevGlobalHistory;
         int PHTThreshold;
+        std::vector<bool> globalHistory;
         std::vector<int> predictorTable;
 };
 #endif
